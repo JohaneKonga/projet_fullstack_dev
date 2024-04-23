@@ -14,7 +14,7 @@ Créez un fichier `.env` avec les variables suivantes :
 ## Documentation API
 Accédez à la documentation Swagger sur : http://localhost:3000/api-docs
 
-## Itinéraires
+## routes
 - `/api/users/purchases` : Obtenez l'historique des achats de l'utilisateur
 - Ajoutez d'autres itinéraires selon vos besoins
 
