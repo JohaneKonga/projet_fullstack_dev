@@ -15,15 +15,15 @@ const userSchema = new mongoose.Schema({
 
 
 const jwt = require('jsonwebtoken');
-const SECRET_KEY = process.env.SECRET_KEY;
+const ACCESS_TOKEN_KEY = process.env.ACCESS_TOKEN_KEY;
 
-userSchema.methods.generateToken = function () {
+userSchema.methods.generateAuthToken = function () {
     const payload = {
-        user_id: this._id, 
+        user_id: this._id.toString(), 
         roles: this.roles
     };
 
-    return jwt.sign(payload, SECRET_KEY, { expiresIn: '3d' }); 
+    return jwt.sign(payload, ACCESS_TOKEN_KEY, { expiresIn: '3d' }); 
 };
 
 

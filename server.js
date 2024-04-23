@@ -7,24 +7,34 @@ const connectDatabase = require("./config/db");
 const corsOptions = require("./config/corsOptions");
 const mongoose = require("mongoose");
 const connection = mongoose.connection;
+const swaggerUI = require("swagger-ui-express");
+const swaggerSpecs = require("./docs/swagger_specs");
+const validJWT = require("./middlewares/valid_jwt.middleware");
+const morgan = require("morgan");
 
 // Enable CORS for all routes
 app.use(cors(corsOptions));
-app.use(express.json()); // Parse JSON requests
-app.use(express.urlencoded({ extended: false })); // Parse URL-encoded data
 
-const swaggerUI = require("swagger-ui-express");
-const swaggerSpecs = require("./docs/swagger_specs");
+app.use(express.json()); 
+app.use(express.urlencoded({ extended: false })); 
+
+app.use(morgan("dev"));
 
 //Swagger api docs
 app.use("/api/docs", swaggerUI.serve, swaggerUI.setup(swaggerSpecs));
 
-app.get("/", (req, res) => {
-  res.json({ message: "server is running..." });
-});
+
 app.use("/auth", require("./routes/auth.route"));
+
+app.use(validJWT);
 app.use("/api/purchases", require("./routes/api/purchase.route"));
 app.use("/api/offers", require("./routes/api/offer.route"));
+
+//NOT FOUND(404) MENTION IN ANOTHER ROUTE
+app.all("*", (req, res) => {
+  res.sendStatus(404);
+});
+
 
 
 connectDatabase();

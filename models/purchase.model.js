@@ -6,9 +6,9 @@ const purchaseSchema = new mongoose.Schema(
       ref: "User",
       required: true,
     },
-    item: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
+    item: { type: mongoose.Schema.Types.ObjectId, ref: "Item", required: true },
   },
   { timestamps: true }
-);
+); 
 
-module.exports = mongoose.model("Purchase", purchaseSchema);
+module.exports = mongoose.model("Purchase", purchaseSchema); 
