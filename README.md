@@ -12,7 +12,7 @@ Créez un fichier `.env` avec les variables suivantes :
 - `MONGODB_URI` : chaîne de connexion MongoDB
 
 ## Documentation API
-Accédez à la documentation Swagger sur : http://localhost:3000/api-docs
+Accédez à la documentation Swagger sur : http://localhost:3000/api/docs
 
 ## routes
 - `/api/users/purchases` : Obtenez l'historique des achats de l'utilisateur

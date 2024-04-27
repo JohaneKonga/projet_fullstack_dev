@@ -29,6 +29,7 @@ app.use("/auth", require("./routes/auth.route"));
 app.use(validJWT);
 app.use("/api/purchases", require("./routes/api/purchase.route"));
 app.use("/api/offers", require("./routes/api/offer.route"));
+app.use("/api/users", require("./routes/api/user.route"));
 
 //NOT FOUND(404) MENTION IN ANOTHER ROUTE
 app.all("*", (req, res) => {
