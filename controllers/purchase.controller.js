@@ -20,9 +20,16 @@ const createPurchase = async (req, res) => {
 };
 
 const getAllPurchases = async (req, res) => {
+  const page = parseInt(req.query.page) - 1 || 0;
+  const limit = parseInt(req.query.limit) || 10;
+
   try {
-    const purchases = await Purchase.find().populate({ path: "item", select: ["title", "price", "link"] });
-    res.status(200).json(purchases);
+    const purchases = await Purchase.find().populate({ path: "item", select: ["title", "price", "link"] })
+      .skip(page * limit)
+      .limit(limit);
+    const total = await Purchase.countDocuments({ userId });
+
+    res.status(200).json({ purchases, total, page: page + 1, pages: Math.ceil(total / limit), limit });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
@@ -66,7 +73,6 @@ const getMyPurchases = async (req, res) => {
   const limit = parseInt(req.query.limit) || 10;
 
   const userId = req.userId;
-  console.log(req.userId);
   try {
     const purchases = await Purchase.find({ userId }).populate({ path: "item", select: ["title", "price", "link"] })
       .skip(page * limit)
