@@ -13,7 +13,7 @@ const validJWT = require("./middlewares/valid_jwt.middleware");
 const morgan = require("morgan");
 
 // Enable CORS for all routes
-app.use(cors(corsOptions));
+app.use(cors());
 
 app.use(express.json()); 
 app.use(express.urlencoded({ extended: false })); 
